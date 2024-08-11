@@ -1,0 +1,46 @@
+import random
+import time
+
+# Slot machine symbols
+symbols = ["🍒", "🍋", "🔔", "⭐", "💎", "7️⃣"]
+
+# Number of spins to simulate
+spins = 100
+
+# Track all winners for the raffle
+winners = []
+
+def spin():
+    """Simulates a single slot machine spin."""
+    return [random.choice(symbols) for _ in range(3)]
+
+def is_winner(spin_result):
+    """Checks if the spin result is a win."""
+    return len(set(spin_result)) == 1
+
+def raffle_draw(winners):
+    """Conducts a raffle draw from the list of winners."""
+    if winners:
+        print(f"\nConducting raffle draw among {len(winners)} winners...")
+        return random.choice(winners)
+    else:
+        print("No winners to draw from.")
+        return None
+
+# Simulate multiple spins
+for i in range(spins):
+    spin_result = spin()
+    print(f"Spin {i+1}: {' '.join(spin_result)}")
+
+    if is_winner(spin_result):
+        print("You won this spin!")
+        winners.append(f"Winner {i+1}")
+
+    time.sleep(1)
+
+# Conduct the raffle draw
+raffle_winner = raffle_draw(winners)
+if raffle_winner:
+    print(f"The raffle winner is: {raffle_winner}")
+else:
+    print("No raffle winner this time.")
